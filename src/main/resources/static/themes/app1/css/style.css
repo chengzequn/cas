@@ -1,0 +1,49 @@
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 5px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 0px;
+    border: 1px solid transparent;
+}
+.navbar-right {
+    float: right!important;
+    margin-right: 0px;
+}
+
+.img-full {
+	width: 100%
+}
+.button-full {
+	width: 100%
+}	
+
+.form-div {
+	width:300px;
+	height:300px;
+	background-color:white;
+	position:absolute;
+	right:100px;
+	top:100px;
+}
+.li-md-6 {
+	width: 50%;
+    position: relative;
+    min-height: 1px;	
+}
+.tab-pad {
+	padding: 10px;
+}
+.div-top {
+	padding-top: 7px;
+}
+
+.middle {
+	padding-top:10px;
+	padding-bottom: 10px;
+}

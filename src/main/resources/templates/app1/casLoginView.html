@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title th:text="${#themes.code('cas.page.title')}"></title>
+
+    <link th:href="@{${#themes.code('cas.common.bootstrap.css')}}" rel="stylesheet">
+    <link th:href="@{${#themes.code('cas.app1.css')}}" rel="stylesheet">
+    <script th:src="@{${#themes.code('cas.common.jquery')}}"></script>
+    <script th:src="@{${#themes.code('cas.common.bootstrap.js')}}"></script>
+</head>
+
+<body>
+    <!-- 顶部栏start -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" th:src="@{${#themes.code('cas.app1.logo')}}">
+                </a>
+            </div>
+            <p class="navbar-text navbar-right">统一登录平台</p>
+        </div>
+    </nav>
+    <!-- 顶部栏end -->
+
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+
+        <!-- 滚动屏幕start -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img th:src="@{${#themes.code('cas.app1.carousel-1')}}" alt="..." class="img-full" >
+                <div class="carousel-caption">
+                </div>
+            </div>
+            <div class="item">
+                <img th:src="@{${#themes.code('cas.app1.carousel-2')}}"  alt="..." class="img-full" >
+                <div class="carousel-caption">
+                </div>
+            </div>
+            <div class="item">
+                <img th:src="@{${#themes.code('cas.app1.carousel-3')}}"  alt="..." class="img-full" >
+                <div class="carousel-caption">
+                </div>
+            </div>
+        </div>
+        <!-- 滚动屏幕end -->
+
+
+        <!-- 登录表单start -->
+        <div class="form-div">
+
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active li-md-6">
+                    <a href="#home" data-toggle="tab">
+                        账号密码登录
+                    </a>
+                </li>
+                <li class="li-md-6"><a href="#ios" data-toggle="tab">手机快捷登录</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active tab-pad" id="home">
+                    <!-- 账号密码登录start -->
+                    <form class="form-horizontal" method="post" th:object="${credential}">
+                        <div th:if="${#fields.hasErrors('*')}">
+                            <span th:each="err : ${#fields.errors('*')}" th:utext="${err}" style="color: red" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input class="required form-control" id="username" size="25" tabindex="1" type="text"
+                                       placeholder="账号/邮箱/手机号"
+                                       th:disabled="${guaEnabled}"
+                                       th:field="*{username}"
+                                       th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                                       autocomplete="off"
+                                       th:value="admin" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input class="required form-control" type="password" id="password" size="25" tabindex="2"
+                                       placeholder="密码"
+                                       th:accesskey="#{screen.welcome.label.password.accesskey}"
+                                       th:field="*{password}"
+                                       autocomplete="off"
+                                       th:value="123456" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <input type="txt" class="form-control"  placeholder="验证码">
+                            </div>
+                            <div class="col-sm-4">
+                                <img src="./img/4.png" alt="code">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 form-inline">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                                <div class="pull-right div-top">
+                                    没有账号？<a href="#">注册</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <section>
+                                    <input type="hidden" name="execution" th:value="${flowExecutionKey}" />
+                                    <input type="hidden" name="_eventId" value="submit" />
+                                    <input type="hidden" name="geolocation" />
+                                    <input class="btn btn-submit btn-block" name="submit" accesskey="l" th:value="#{screen.welcome.button.login}" tabindex="6" type="submit" />
+                                </section>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- 账号密码登录end -->
+                </div>
+                <div class="tab-pane fade tab-pad" id="ios">
+                    <!-- 手机动态登录start -->
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" placeholder="手机号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <input type="txt" class="form-control" placeholder="验证码">
+                            </div>
+                            <div class="col-sm-4">
+                                <img src="./img/4.png" alt="code">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" placeholder="动态码">
+                            </div>
+                            <div class="col-sm-6">
+                                <button  type="submit" class="btn btn-default button-full">获取动态码</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 form-inline">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                                <div class="pull-right div-top">
+                                    没有账号？<a href="#">注册</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-default button-full">登录</button>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- 手机动态登录end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏start -->
+    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+        <div class="container-fluid ">
+            <p class="text-center middle">Copyright © 2013-2020 统一登录平台  www.baidu.com All Rights Reserved. 备案号：闽ICP备xxxxxxx号-1</p>
+        </div>
+    </nav>
+    <!-- 底部栏start -->
+
+</body>
+</html>
