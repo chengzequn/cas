@@ -92,7 +92,7 @@
                                        th:value="123456" />
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" >
                             <div class="col-sm-6">
                                 <input type="txt" class="form-control"  placeholder="验证码">
                             </div>
@@ -100,11 +100,14 @@
                                 <img src="./img/4.png" alt="code">
                             </div>
                         </div>
-                        <div class="form-group">
+<!--                        <section th:if="${rememberMeAuthenticationEnabled}>-->
+<!--                            QQQQ-->
+<!--                        </section>-->
+                        <div class="form-group" th:if="${rememberMeAuthenticationEnabled}">
                             <div class="col-sm-12 form-inline">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox"> Remember me
+                                        <input type="checkbox" name="rememberMe" id="rememberMe" value="true" tabindex="5"/> Remember me
                                     </label>
                                 </div>
                                 <div class="pull-right div-top">
