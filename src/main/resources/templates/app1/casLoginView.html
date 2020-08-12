@@ -94,10 +94,17 @@
                         </div>
                         <div class="form-group" >
                             <div class="col-sm-6">
-                                <input type="txt" class="form-control"  placeholder="验证码">
+                                <input class="required form-control"
+                                       id="captcha"
+                                       name="captcha"
+                                       size="10"
+                                       tabindex="2"
+                                       th:field="*{captcha}"
+                                       autocomplete="off"
+                                       placeholder="验证码">
                             </div>
                             <div class="col-sm-4">
-                                <img src="./img/4.png" alt="code">
+                                <img th:src="@{/captcha.jpg}" alt="code" id="captcha_img" onclick="javascript:refreshCaptcha()">
                             </div>
                         </div>
 <!--                        <section th:if="${rememberMeAuthenticationEnabled}>-->
@@ -137,11 +144,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-6">
-                                <input type="txt" class="form-control" placeholder="验证码">
+                            <div class="col-sm-6 ">
+<!--                                <input class="required form-control"-->
+<!--                                       id="captcha"-->
+<!--                                       name="captcha"-->
+<!--                                       size="10"-->
+<!--                                       tabindex="2"-->
+<!--                                       th:field="*{captcha}"-->
+<!--                                       autocomplete="off"-->
+<!--                                       placeholder="验证码">-->
                             </div>
                             <div class="col-sm-4">
-                                <img src="./img/4.png" alt="code">
+                                <img th:src="@{/captcha.jpg}" alt="code" id="captcha_img" onclick="javascript:refreshCaptcha()">
                             </div>
                         </div>
                         <div class="form-group">
@@ -185,4 +199,9 @@
     <!-- 底部栏start -->
 
 </body>
+<script type="text/javascript">
+    function refreshCaptcha(){
+        $("#captcha_img").attr("src","/cas/captcha.jpg?id=" + new Date() + Math.floor(Math.random()*24));
+    }
+</script>
 </html>

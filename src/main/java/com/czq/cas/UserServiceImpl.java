@@ -15,9 +15,9 @@ public class UserServiceImpl implements UserService{
     public Map<String, Object> findByUserName(String username) {
         Map map=new HashMap();
         map.put("uid","111111");
-        map.put("","");
-        map.put("","");
+        map.put("username","cheng");
+        map.put("password","ad6d2ce36599815f4115d2569190f94c");
 
-        return null;
+        return map;
     }
 }

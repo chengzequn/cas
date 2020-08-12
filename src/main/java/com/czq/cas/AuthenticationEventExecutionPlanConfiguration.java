@@ -10,6 +10,7 @@ import org.apereo.cas.configuration.CasConfigurationProperties;
 import org.apereo.cas.services.ServicesManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,11 +25,9 @@ import org.springframework.context.annotation.Configuration;
 public class AuthenticationEventExecutionPlanConfiguration implements AuthenticationEventExecutionPlanConfigurer {
 
     @Autowired
-    private CasConfigurationProperties properties;
-
-    @Autowired
     @Qualifier("servicesManager")
     private ServicesManager servicesManager;
+
 
     @Bean(name="securityManager")
     public SecurityManager securityManager(){
@@ -50,12 +49,23 @@ public class AuthenticationEventExecutionPlanConfiguration implements Authentica
     }
 
     @Bean
+    public MethodInvokingFactoryBean getMethodInvokingFactoryBean(){
+        MethodInvokingFactoryBean factoryBean = new MethodInvokingFactoryBean();
+        factoryBean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
+        factoryBean.setArguments(new Object[]{securityManager()});
+        return factoryBean;
+    }
+
+    @Bean
     public AuthenticationHandler authenticationHandler(){
-        UsernamePasswordAuthenticationHandler handler=
-                new UsernamePasswordAuthenticationHandler(UsernamePasswordAuthenticationHandler.class.getSimpleName(),
-                        servicesManager,new DefaultPrincipalFactory(),1);
+        RememberMeUsernamePasswordCaptchaAuthenticationHandler handler=
+                new RememberMeUsernamePasswordCaptchaAuthenticationHandler(RememberMeUsernamePasswordCaptchaAuthenticationHandler.class.getSimpleName(),
+                        servicesManager,new DefaultPrincipalFactory(),10);
+
         return handler;
     }
+
+
     
     @Override
     public void configureAuthenticationExecutionPlan(AuthenticationEventExecutionPlan plan) {
