@@ -55,7 +55,7 @@ public class RememberMeUsernamePasswordCaptchaAuthenticationHandler extends Abst
 
         //可以在这里直接对用户名校验，或者调用CredentialMatcher校验
         if(user == null){
-            throw new UnknownAccountException("用户名或密码错误");
+            throw new CustomAccountNotFountException("用戶名不存在！");
         }
 
         //检测用户是否已被锁定
@@ -74,7 +74,7 @@ public class RememberMeUsernamePasswordCaptchaAuthenticationHandler extends Abst
 
         checkSubjectRolesAndPermissions(String.valueOf(user.get("uid")));
 
-        return createHandlerResult(credential,this.principalFactory.createPrincipal(username));
+        return createHandlerResult(credential,this.principalFactory.createPrincipal(username,user));
     }
 
     @Override
