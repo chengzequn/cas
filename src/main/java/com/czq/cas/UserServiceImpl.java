@@ -18,6 +18,6 @@ public class UserServiceImpl implements UserService{
         map.put("username","cheng");
         map.put("password","ad6d2ce36599815f4115d2569190f94c");
 
-        return null;
+        return map;
     }
 }
